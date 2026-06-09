@@ -1,0 +1,3 @@
+angr==9.2.221
+openai==2.41.0
+langchain-core==1.4.1
