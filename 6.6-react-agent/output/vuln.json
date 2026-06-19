@@ -1,0 +1,5 @@
+{
+  "vuln_type": "stack_buffer_overflow",
+  "location": "FUN_00401264",
+  "cause": "Untrusted input read via fgets into a 128-byte buffer is copied via __strcpy_chk to a destination buffer of only 16 bytes without proper length validation, allowing up to 100 characters to overflow the stack."
+}

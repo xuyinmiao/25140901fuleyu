@@ -1,5 +1,9 @@
 .venv/
 __pycache__/
-*.pyc
+*.py[cod]
+.cache/
+.env
+tools/
+cache/
 .DS_Store
-*.dSYM/
+targets/challenge
