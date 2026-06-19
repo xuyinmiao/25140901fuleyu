@@ -1,0 +1,31 @@
+# Semgrep 运行记录（仅自写规则、单条 id，可追溯）
+# 姓名：付乐宇  学号：25140901
+# 工作区：目标仓库的 4.25-semgrep/ 目录
+#
+# 规则文件（本实验唯一 -c 配置，未使用 p/owasp 等现成包）：
+#   semgrep-lab/rules/sqli_dynamic_execute.yaml
+# 仅含规则 id：sqli-exec-after-modulo-format
+#
+# ---------------------------------------------------------------------------
+# 一、规则回归
+# 命令（在本作业目录根目录）：
+#   semgrep --test semgrep-lab/rules --metrics=off
+# ---------------------------------------------------------------------------
+1/1: ✓ All tests passed
+No tests for fixes found.
+
+# ---------------------------------------------------------------------------
+# 二、仅业务库（排除规则配套 *.test.py），使命中仅反映 db.py
+# 命令：
+#   semgrep -c semgrep-lab/rules/sqli_dynamic_execute.yaml . --exclude "sqli_dynamic_execute.test.py" --metrics=off
+# ---------------------------------------------------------------------------
+# Scan Summary: Findings: 1
+# 命中：db.py 第 39-40 行，find_user，sqli-exec-after-modulo-format
+#
+#    db.py
+#           39┆ query = "SELECT * FROM users WHERE username = '%s'" % username
+#           40┆ cur.execute(query)
+
+# ---------------------------------------------------------------------------
+# 三、若不上 --exclude，规则测试用例中亦会命中 1 次（与 db 合计 2 条），属正常。
+# ---------------------------------------------------------------------------

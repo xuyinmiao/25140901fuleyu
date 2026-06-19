@@ -1,0 +1,15 @@
+# 人工分析结论的静态刻画：「% 格式化」拼出 SQL 再交给 sqlite3 游标 execute（本实验仅一条规则）
+rules:
+  - id: sqli-exec-after-modulo-format
+    languages: [python]
+    severity: ERROR
+    message: >
+      SQL 文本通过 `%` 与外部值拼接，再 `execute` 全串 — 与参数化（占位符+元组）的惯用法相违背，
+      可构成 SQL 注入。人工判据与规则一致时触警。
+    metadata:
+      category: security
+    patterns:
+      - pattern: |
+          $Q = "..." % $A
+          ...
+          $C.execute($Q)
